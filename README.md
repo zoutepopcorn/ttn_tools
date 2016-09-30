@@ -1,6 +1,6 @@
 # ttn_tools
 
-
+A tool to connect The Things Network devices to a websocket, for free.
 
 # Websocket
 
