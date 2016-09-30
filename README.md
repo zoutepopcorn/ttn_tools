@@ -8,7 +8,7 @@ A html page that will connect to mqtt and load your the things network messages 
 
 ![alt tag](https://i.snag.gy/yBG2kT.jpg)
 
-# 1 create a cloudmqtt account
+# create a cloudmqtt account
 
 Create a FREE account at http://cloudmqtt.com (no payment details needed)
 Create a new CloudMQTT instance *(Cute Cat is the free plan)*
@@ -16,6 +16,8 @@ Create a new CloudMQTT instance *(Cute Cat is the free plan)*
 Create a bridge and fill in 
 mqtt://user:pass@staging.thethingsnetwork.org (see your ttn Dashboard, click howto get data from this app)
 
+
+# open the html file
 Fill in your cloudmqtt user and password in the webinterface.
 
 Receive your packages :)
