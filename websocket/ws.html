@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-
   <!-- Bootstrap -->
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -10,14 +9,18 @@
 <body>
 
   <div class="container">
-
         <!--form class="form-signin"-->
         <div id="divConn">
           <h2 class="form-signin-heading">cloudmqtt.com login</h2>
          <label for="server" class="sr-only">server</label>
           <input id="server" class="form-control" value="m20.cloudmqtt.com" required autofocus>
+          <label for="port" class="sr-only">port</label>
+          <input id="port" class="form-control" placeholder="port" required autofocus>
+
+
           <label for="username" class="sr-only">Username</label>
           <input id="username" class="form-control" placeholder="Username" required autofocus>
+
           <label for="password" class="sr-only">password</label>
           <!-- type="password" -->
           <input  id="password" class="form-control" placeholder="Password" required>
@@ -37,22 +40,25 @@
       $("#server").val(localStorage.getItem("srv"));
       $("#username").val(localStorage.getItem("usr"));
       $("#password").val(localStorage.getItem("pss"));
+      $("#port").val(localStorage.getItem("prt"));
     }
-
 
     function connect() {
         // connect to MQTT cloudmqtt
         var srv = $("#server").val();
+        var prt = parseInt($("#port").val());
 
-        client = new Paho.MQTT.Client(srv, 34393,"client_id" + parseInt(Math.random() * 100, 10));
+        client = new Paho.MQTT.Client(srv, prt,"client_id" + parseInt(Math.random() * 100, 10));
         client.onConnectionLost = onConnectionLost;
         client.onMessageArrived = onMessageArrived;
         var usr = $("#username").val();
         var pss = $("#password").val();
+        var prt = $("#port").val();
 
         localStorage.setItem("usr", usr);
         localStorage.setItem("pss", pss);
         localStorage.setItem("srv", srv);
+        localStorage.setItem("prt", prt);
 
         var options = {
           useSSL: true,
@@ -77,10 +83,12 @@
 
         // called when the client loses its connection
         function onConnectionLost(responseObject) {
-          $("#divConn").hide();
+          $("#divConn").show();
           $("#connect").addClass("btn-fail");
+          $("#connect").hide();
+          console.log("kom ik wellllll");
           if (responseObject.errorCode !== 0) {
-            console.log("onConnectionLost:"+responseObject.errorMessage);
+            console.log("onConnectionLost:"+ responseObject.errorMessage);
           }
       }
       // called when a message arrives
@@ -89,12 +97,34 @@
         out = JSON.parse(message.payloadString);
         msg = d64(out.payload);
         console.log("count: " + out.counter);
-        html = '<blockquote><p>' +  msg  + ' </p><footer>counter: ' + out.counter  +  ' rssi: ' +  out.rssi + '</footer></blockquote>';
+        d = new Date();
+        t = d.getTime();
+
+        gw = "&nbsp;";
+        for(i = 0; i < out.metadata.length; i++) {
+        		console.log(out.metadata[i].rssi);
+            gw = gw +
+                 '<span class="glyphicon glyphicon-glass"></span>&nbsp;&nbsp;' + out.metadata[i].gateway_eui + ' &nbsp;&nbsp;' +
+                 '<span class="glyphicon glyphicon-signal"></span>&nbsp;&nbsp;' + out.metadata[i].rssi + '&nbsp;' ;
+        }
+        // glyphicon glyphicon-glass
+        // glyphicon glyphicon-cloud-download
+        html = '<br><br><blockquote id=' +  t  + ' class="collapse" ><div class="alert alert-success alert-dismissable">' +
+               '<span class="glyphicon glyphicon-bullhorn"></span>&nbsp; &nbsp; &nbsp;' +
+                 msg +
+               '</div><span style="float:right" class="alert alert-warning"><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;' +
+                 out.counter +
+               '  ' +
+                 gw +
+               '</span></blockquote>';
+
         console.log("msg: " + html);
-        $("#divMsg").append(html);
+        var audio = new Audio('http://www.w3schools.com/tags/horse.mp3');
+        audio.play();
+        $("#divMsg").prepend(html);
+        $('#' + t).collapse("show");
       }
    }
-
 
     function d64(s) {
           var e={},i,b=0,c,x,l=0,a,r='',w=String.fromCharCode,L=s.length;
