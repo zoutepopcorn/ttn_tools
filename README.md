@@ -1,10 +1,10 @@
 # ttn_tools
 
-A tool to connect The Things Network devices to a websocket, for free.
+A tool to connect your The Things Network devices to a websocket, for free :D.
 
 # Websocket
 
-A html page that will connect to mqtt and load your the things network messages live. without using a paid webserver.
+A html page that will connect to mqtt and load your the things network messages live, without using a paid webserver.
 
 ![alt tag](https://i.snag.gy/yBG2kT.jpg)
 
@@ -18,9 +18,12 @@ mqtt://user:pass@staging.thethingsnetwork.org (see your ttn Dashboard, click how
 
 
 # open the html file
-Fill in your cloudmqtt user and password in the webinterface.
+Fill in your cloudmqtt user and password in the webinterface. Or use https://hoeks.ma/ws.html
 
 Receive your packages :)
 
 # Note
 Please know that the html files saves your cloudmqtt password in localstorage. Think about it if you want a secure app...
+
+# ...
+There are some other free iot tools, to store messages also. Please let me know.
