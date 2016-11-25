@@ -10,7 +10,7 @@ The first tool can connect your The Things Network devices to a websocket, for f
 Create a FREE account at http://cloudmqtt.com (no payment details needed)
 Create a new CloudMQTT instance *(Cute Cat is the free plan)*
 
-Create a bridge and fill in 
+Create a bridge and fill in
 mqtt://user:pass@staging.thethingsnetwork.org (see your ttn Dashboard, click howto get data from this app)
 
 ## open the html file
