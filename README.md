@@ -1,6 +1,6 @@
 # The Things Network tools
 
-The first tool can connect your The Things Network devices to a websocket, for free :D. A html page that will connect to mqtt and load your the things network messages live, without using a paid webserver.
+The first tool can connect your The Things Network devices to a websocket, for free :D. A html page that will connect to mqtt and load your the things network messages live, without using a paid webserver
 
 ![alt tag](https://i.snag.gy/yBG2kT.jpg)
 
